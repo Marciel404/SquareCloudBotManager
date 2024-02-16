@@ -8,7 +8,7 @@ Para pode utilizar futuramente em um SelecMenu para selecionar aplicações
 
 exports.tempDbApplications = new class tempDbApplications {
 
-    constructor(){
+    constructor() {
 
         this.db = new JsonDB(new Config("tembdbApps", true, true)) // Acessa e configura a db
 
@@ -16,25 +16,31 @@ exports.tempDbApplications = new class tempDbApplications {
 
     }
 
-    async saveApplictions(userId, ArrayApplitions){
-        if (await this.db.exists(`/${userId}/aplicationsSelectMenuOptions`)){
+    async saveApplictions(userId, ArrayApplitions) {
+        if (await this.db.exists(`/${userId}/aplicationsSelectMenuOptions`)) {
             const applicationObj = await this.db.getObject(`/${userId}/aplicationsSelectMenuOptions`)
             const c = applicationObj
             c.push(ArrayApplitions)
-            await this.db.push(`/${userId}/aplicationsSelectMenuOptions/`, c, true)         
+            await this.db.push(`/${userId}/aplicationsSelectMenuOptions/`, c, true)
         } else {
             await this.db.push(`/${userId}/aplicationsSelectMenuOptions`, [ArrayApplitions], true)
         }
     }
 
-    async clearApplications(userId){
-        if (await this.db.exists(`/${userId}/aplicationsSelectMenuOptions`)){
+    async clearApplications(userId) {
+        if (await this.db.exists(`/${userId}/aplicationsSelectMenuOptions`)) {
             await this.db.delete(`/${userId}/aplicationsSelectMenuOptions`)
         }
     }
 
-    getApplicationsLine(){
-        
+    async getApplicationsLine(userId) {
+        await this.db.reload()
+        if (await this.db.exists(`/${userId}/aplicationsSelectMenuOptions`)) {
+            const applicationObj = await this.db.getObject(`/${userId}/aplicationsSelectMenuOptions`)
+            return applicationObj
+        } else {
+            return []
+        }
     }
 
 }

@@ -23,7 +23,8 @@ ClientBot.on("interactionCreate", async (interaction) => {
 
         try {
 
-            const e = require(`../interaction/buttons/${interaction.customId}`) //Procura na pasta buttons a função do Botão
+            const e = require(`../interactions/buttons/${interaction.customId.split("-")[0]}`)
+            //Pega o primeiro argumento do customId e procura na pasta buttons a função do Botão
 
             if (e.execute) { //Verifica se existe uma função chamada "execute"
                 await e.execute(interaction) //Executa a função do botão
@@ -39,7 +40,7 @@ ClientBot.on("interactionCreate", async (interaction) => {
 
         try {
 
-            const e = require(`../interaction/selectmenus/${interaction.customId}`) //Procura na pasta selectmenus a função do SelectMenu
+            const e = require(`../interactions/selectmenus/${interaction.customId}`) //Procura na pasta selectmenus a função do SelectMenu
 
             if (e.execute) { //Verifica se existe uma função chamada "execute"
                 await e.execute(interaction) //Executa a função do botão
@@ -55,7 +56,7 @@ ClientBot.on("interactionCreate", async (interaction) => {
 
         try {
 
-            const e = require(`../interaction/modals/${interaction.customId}`) //Procura na pasta modals a função do Modal
+            const e = require(`../interactions/modals/${interaction.customId}`) //Procura na pasta modals a função do Modal
 
             if (e.execute) { //Verifica se existe uma função chamada "execute"
                 await e.execute(interaction) //Executa a função do botão

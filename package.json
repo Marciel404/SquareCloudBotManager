@@ -11,8 +11,10 @@
   "license": "ISC",
   "dependencies": {
     "@squarecloud/api": "^3.4.2",
+    "axios": "^1.6.7",
     "discord.js": "^14.14.1",
     "dotenv": "^16.4.4",
+    "moment": "^2.30.1",
     "node-json-db": "^2.3.0"
   }
 }
